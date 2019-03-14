@@ -15,6 +15,7 @@ class Node {
 		}
 	}
 
+
 	removeChild(node) {
 		if(node == this.left){
 			return this.left = null, node.parent = null; 
@@ -36,6 +37,13 @@ class Node {
 			return;
 		}
 
+		if(this.left){
+			this.left.parent = this.parent;	
+		}
+		if(this.right){
+			this.right.parent = this.parent;	
+		}
+
 		if(this.parent.parent === null){
 		}else if(this.parent.parent.left === this.parent && this.parent.parent){
 				this.parent.parent.left = this;
@@ -51,6 +59,29 @@ class Node {
 				this.parent.left.parent = this;
 			}
 		}
+
+		
+		
+		let tempParent = this.parent,
+			tempLeft = this.left,
+			tempThis = this,
+			tempRight = this.right;
+
+		let tempParentParent = this.parent.parent,
+			tempParentLeft = this.parent.left,
+			tempParentRight = this.parent.right;
+		
+		if(this.parent.left === this){
+			this.left = tempParent;
+			this.right = tempParentRight;
+		}else if(this.parent.right === this){
+			this.right = tempParent;
+			this.left = tempParentLeft;
+		}
+		this.parent.parent = tempThis;
+		this.parent.left = tempLeft;
+		this.parent.right = tempRight;
+		this.parent = tempParentParent;	
 	}
 }
 
