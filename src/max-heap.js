@@ -52,31 +52,7 @@ class MaxHeap {
 		}
 	}
 
-	correctParentNodes(node){
-		let pos = this.parentNodes.indexOf(node);
-		let parentPos = this.parentNodes.indexOf(node.parent);
-
-		if (parentPos !== -1) {
-			this.parentNodes[pos] = node.parent;
-			this.parentNodes[parentPos] = node;
-		}
-		else {
-			this.parentNodes[pos] = node.parent;
-		}
-
-	}
-
 	shiftNodeUp(node) {
-		if (node.parent == null){
-			this.root = null;
-		} else {
-			if (node.parent.priority < node.priority){
-				this.correctParentNodes(node);
-				node.swapWithParent();
-				this.shiftNodeUp(node);
-			} 
-			this.root = node;
-		}
 	}
 
 	shiftNodeDown(node) {
