@@ -13,17 +13,22 @@ class MaxHeap {
 	}
 
 	pop() {
-		if(!this.root){
-			return;
+
+		if(this.root !==null){
+			
 		}
+		
 	}
 
 	detachRoot() {
-		
+		let detachedRoot = this.root;
+		this.root = null;
+		this.parentNodes.shift();
+		return detachedRoot;
 	}
 
 	restoreRootFromLastInsertedNode(detached) {
-		
+			
 	}
 
 	size() {
@@ -40,10 +45,10 @@ class MaxHeap {
 	}
 
 	insertNode(node) {
-		if (this.root == null) {
+			if (this.root == null) {
 			this.root = node;
 			this.parentNodes.push(node);
-		} else {
+			} else {
 			this.parentNodes[0].appendChild(node);
 			if (this.parentNodes[0].left != null && this.parentNodes[0].right != null) {
 				this.parentNodes.shift();
@@ -53,8 +58,22 @@ class MaxHeap {
 	}
 
 	shiftNodeUp(node) {
+		let nodePosition = this.parentNodes.indexOf(node);
+		let parentPosition = this.parentNodes.indexOf(node.parent);
+		if (node.parent == null){
+			this.root = node;
+		} else
+		if(node.priority>node.parent.priority){
+			if(parentPosition !== -1){
+				this.parentNodes[nodePosition] = node.parent;
+				this.parentNodes[parentPosition] = node;
+			} else {
+				this.parentNodes[nodePosition] = node.parent;
+			}
+			node.swapWithParent();
+			this.shiftNodeUp(node);
+		} 
 	}
-
 	shiftNodeDown(node) {
 	}
 }
